@@ -2,7 +2,7 @@ import random, time, sys
 
 health = 100
 money = 0
-food = 0
+food = 1
 role = ''
 
 print("Welcome to the Oregon Trail")
@@ -30,9 +30,17 @@ def setRole():
       print('Please enter something valid')
   return role, health, money
 
+def hunt(food):
+  huntedFood = random.randint(1, 200)
+  food += huntedFood
+  return food
 
-name = getName()
-print(f"Welcome, {name}, to the adventure!")
 
-(role, health, money) = setRole()
-print(f"Role: {role}, Health: {health}, Money: {money}")
+# name = getName()
+# print(f"Welcome, {name}, to the adventure!")
+
+# (role, health, money) = setRole()
+# print(f"Role: {role}, Health: {health}, Money: {money}")
+
+newFood = hunt(food)
+print(newFood)
