@@ -40,6 +40,23 @@ def rest(days):
   health = health + (days * 3)
   return health
 
+def randomSick():
+  global health
+  sickChoice = random.randint(1, 3)
+  if sickChoice == 1:
+    print("Fever")
+    health -= 10
+    print(f"Health is now {health}")
+  elif sickChoice == 2:
+    print("Cold")
+    health -= 20
+    print(f"Health is now {health}")
+  else:
+    print("Cholera")
+    health -= 30
+    print(f"Health is now {health}")
+  return health
+
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
