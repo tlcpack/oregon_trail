@@ -35,6 +35,11 @@ def hunt(food):
   food += huntedFood
   return food
 
+def rest(days):
+  global health
+  health = health + (days * 3)
+  return health
+
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
