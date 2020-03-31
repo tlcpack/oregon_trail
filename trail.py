@@ -57,6 +57,13 @@ def randomSick():
     print(f"Health is now {health}")
   return health
 
+def update(distance, pace, destination):
+  while distance > 0:
+    print(f"{distance} miles to go")
+    time.sleep(1)
+    distance -= 3 * pace
+  return print(f"Arrived at {destination}")
+
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
