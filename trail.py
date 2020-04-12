@@ -2,7 +2,7 @@ import random, time, sys
 
 health = 100
 money = 0
-food = 1
+food = 10
 role = ''
 
 print("Welcome to the Oregon Trail")
@@ -30,7 +30,8 @@ def setRole():
       print('Please enter something valid')
   return role, health, money
 
-def hunt(food):
+def hunt():
+  global food
   huntedFood = random.randint(1, 200)
   food += huntedFood
   return food
@@ -61,9 +62,21 @@ def update(distance, pace, destination):
   while distance > 0:
     print(f"{distance} miles to go")
     time.sleep(1)
+    event()
     distance -= 3 * pace
   return print(f"Arrived at {destination}")
 
+def event():
+  global food
+  something = random.randint(1, 4)
+  if something == 1:
+    rest(2)
+  elif something == 2:
+    hunt(food)
+  elif something == 3:
+    randomSick
+  else:
+    pass
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
@@ -71,5 +84,5 @@ def update(distance, pace, destination):
 # (role, health, money) = setRole()
 # print(f"Role: {role}, Health: {health}, Money: {money}")
 
-newFood = hunt(food)
-print(newFood)
+hunt()
+print(food)
