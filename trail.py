@@ -34,11 +34,13 @@ def hunt():
   global food
   huntedFood = random.randint(1, 200)
   food += huntedFood
+  print('Hunting')
   return food
 
 def rest(days):
   global health
   health = health + (days * 3)
+  print('Resting')
   return health
 
 def randomSick():
@@ -72,7 +74,7 @@ def event():
   if something == 1:
     rest(2)
   elif something == 2:
-    hunt(food)
+    hunt()
   elif something == 3:
     randomSick
   else:
@@ -84,5 +86,4 @@ def event():
 # (role, health, money) = setRole()
 # print(f"Role: {role}, Health: {health}, Money: {money}")
 
-hunt()
-print(food)
+update(20, 2, 'Charlotte')
