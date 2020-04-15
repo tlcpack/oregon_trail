@@ -79,6 +79,16 @@ def event():
     randomSick
   else:
     pass
+  
+def lowFood():
+  global food
+  if food < 50:
+    huntQ = input("Low food, hunt? ")
+    if huntQ.lower() == 'y' or huntQ.lower() == 'yes':
+      hunt()
+      print(food)
+    else:
+      print(food)
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
