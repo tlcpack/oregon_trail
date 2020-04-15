@@ -86,9 +86,18 @@ def lowFood():
     huntQ = input("Low food, hunt? ")
     if huntQ.lower() == 'y' or huntQ.lower() == 'yes':
       hunt()
-      print(food)
     else:
       print(food)
+      
+def lowHealth():
+  global health
+  if health < 50:
+    restQ = input("Low health, rest? ")
+    if restQ.lower() == 'y' or restQ.lower() == 'yes':
+      daysQ = input("How many days? ")
+      rest(int(daysQ))
+    else:
+      print(health)
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
