@@ -5,6 +5,13 @@ money = 0
 food = 10
 role = ''
 
+class Destination:
+  def __init__(self, name, miles):
+    self.name = name
+    self.miles = miles
+
+durham = Destination("Durham", 30)
+
 print("Welcome to the Oregon Trail")
 time.sleep(1)
 def getName():
@@ -105,4 +112,4 @@ def lowHealth():
 # (role, health, money) = setRole()
 # print(f"Role: {role}, Health: {health}, Money: {money}")
 
-update(20, 2, 'Charlotte')
+update(durham.miles, 2, durham.name)
