@@ -1,6 +1,6 @@
 import random, time, sys
 
-health = 100
+health = 10
 money = 0
 food = 10
 role = ''
@@ -11,12 +11,14 @@ class Destination:
     self.miles = miles
 
 durham = Destination("Durham", 30)
+charlotte = Destination("Charlotte", 45)
 
 print("Welcome to the Oregon Trail")
 time.sleep(1)
 def getName():
-  print("Enter your name:")
+  print("Enter your name: ")
   name = input()
+  print(f"Welcome, {name}, to the adventure!")
   return name
 
 def setRole():
@@ -25,16 +27,17 @@ def setRole():
     role = input()
     if role == '1':
       role = 'Doctor'
-      health = 125
+      health = 10
       money = 100
       break
     elif role == '2':
       role = 'Banker'
-      health = 100
+      health = 10
       money = 150
       break
     else:
       print('Please enter something valid')
+  print(f"Health: {health}, Money: {money}")
   return role, health, money
 
 def hunt():
@@ -68,11 +71,18 @@ def randomSick():
   return health
 
 def update(distance, pace, destination):
+  global food
+  global health
   while distance > 0:
     print(f"{distance} miles to go")
     time.sleep(1)
     event()
+    food -= 5
+    lowFood()
+    health -= 10
+    lowHealth()
     distance -= 3 * pace
+    checklife()
   return print(f"Arrived at {destination}")
 
 def event():
@@ -106,10 +116,21 @@ def lowHealth():
     else:
       print(health)
 
+def checklife():
+  if health == 0 or food == 0:
+    print("you died")
+    exit()
+
+def game():
+  getName()
+  setRole()
+  update(durham.miles, 3, durham.name)
+  update(charlotte.miles, 4, charlotte.name)
+
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
 
 # (role, health, money) = setRole()
 # print(f"Role: {role}, Health: {health}, Money: {money}")
 
-update(durham.miles, 2, durham.name)
+game()
