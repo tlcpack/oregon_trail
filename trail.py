@@ -70,7 +70,7 @@ def randomSick():
     print(f"Health is now {health}")
   return health
 
-def update(distance, pace, destination):
+def travel(distance, pace, destination):
   global food
   global health
   while distance > 0:
@@ -124,8 +124,8 @@ def checklife():
 def game():
   getName()
   setRole()
-  update(durham.miles, 3, durham.name)
-  update(charlotte.miles, 4, charlotte.name)
+  travel(durham.miles, 3, durham.name)
+  travel(charlotte.miles, 4, charlotte.name)
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
