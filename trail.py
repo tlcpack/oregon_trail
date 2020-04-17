@@ -15,6 +15,7 @@ charlotte = Destination("Charlotte", 45)
 
 print("Welcome to the Oregon Trail")
 time.sleep(1)
+
 def getName():
   print("Enter your name: ")
   name = input()
@@ -27,12 +28,12 @@ def setRole():
     role = input()
     if role == '1':
       role = 'Doctor'
-      health = 10
+      health = 150
       money = 100
       break
     elif role == '2':
       role = 'Banker'
-      health = 10
+      health = 100
       money = 150
       break
     else:
@@ -47,11 +48,16 @@ def hunt():
   print('Hunting')
   return food
 
-def rest(days):
+def rest():
   global health
-  health = health + (days * 3)
-  print('Resting')
-  return health
+  while True:
+    days = input('How many days? ')
+    if days.isdigit():
+      health = health + (int(days) * 3)
+      print('Resting ', health)
+      return health
+    else:
+      print('Enter a positive integer')
 
 def randomSick():
   global health
@@ -89,7 +95,7 @@ def event():
   global food
   something = random.randint(1, 4)
   if something == 1:
-    rest(2)
+    rest()
   elif something == 2:
     hunt()
   elif something == 3:
@@ -111,8 +117,7 @@ def lowHealth():
   if health < 50:
     restQ = input("Low health, rest? ")
     if restQ.lower() == 'y' or restQ.lower() == 'yes':
-      daysQ = input("How many days? ")
-      rest(int(daysQ))
+      rest()
     else:
       print(health)
 
@@ -133,4 +138,4 @@ def game():
 # (role, health, money) = setRole()
 # print(f"Role: {role}, Health: {health}, Money: {money}")
 
-game()
+rest()
