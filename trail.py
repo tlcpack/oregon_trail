@@ -1,8 +1,8 @@
 import random, time, sys
 
-health = 10
+health = 100
 money = 0
-food = 10
+food = 100
 role = ''
 
 class Destination:
@@ -17,15 +17,13 @@ print("Welcome to the Oregon Trail")
 time.sleep(1)
 
 def getName():
-  print("Enter your name: ")
-  name = input()
+  name = input("Enter your name: ")
   print(f"Welcome, {name}, to the adventure!")
   return name
 
 def setRole():
   while True:
-    print("Who do you want to be: 1 for Doctor, 2 for Banker")
-    role = input()
+    role = input("Who do you want to be: 1 for Doctor, 2 for Banker ")
     if role == '1':
       role = 'Doctor'
       health = 150
@@ -40,6 +38,18 @@ def setRole():
       print('Please enter something valid')
   print(f"Health: {health}, Money: {money}")
   return role, health, money
+
+def setPace():
+  while True:
+    paceInput = input("How fast would you like to go? 1 for Fast, 2 for slow ")
+    if int(paceInput) == 1:
+      pace = 10
+      return pace
+    elif int(paceInput) == 2:
+      pace = 3
+      return pace
+    else:
+      print("Please enter something valid")
 
 def hunt():
   global food
@@ -76,7 +86,7 @@ def randomSick():
     print(f"Health is now {health}")
   return health
 
-def travel(distance, pace, destination):
+def travel(name, distance, pace, destination):
   global food
   global health
   while distance > 0:
@@ -89,7 +99,7 @@ def travel(distance, pace, destination):
     lowHealth()
     distance -= 3 * pace
     checklife()
-  return print(f"Arrived at {destination}")
+  return print(f"{name} arrived at {destination}")
 
 def event():
   global food
@@ -122,15 +132,17 @@ def lowHealth():
       print(health)
 
 def checklife():
-  if health == 0 or food == 0:
+  if health <= 0 or food <= 0:
     print("you died")
     exit()
 
 def game():
-  getName()
-  setRole()
-  travel(durham.miles, 3, durham.name)
-  travel(charlotte.miles, 4, charlotte.name)
+  name = getName()
+  role = setRole()
+  pace = setPace()
+  print(pace)
+  travel(name, durham.miles, pace, durham.name)
+  travel(name, charlotte.miles, pace, charlotte.name)
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
@@ -138,4 +150,4 @@ def game():
 # (role, health, money) = setRole()
 # print(f"Role: {role}, Health: {health}, Money: {money}")
 
-rest()
+game()
