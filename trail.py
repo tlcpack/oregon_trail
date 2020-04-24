@@ -1,17 +1,33 @@
 import random, time, sys
+from pynput import keyboard
 
 health = 100
 money = 0
 food = 100
 role = ''
 
+break_program = False
+def on_press(key):
+    global break_program
+    print (key)
+    if key == keyboard.Key.esc:
+        print ('end pressed')
+        break_program = True
+        return False
+
+with keyboard.Listener(on_press=on_press) as listener:
+    while break_program == False:
+        print ('program running')
+        time.sleep(5)
+    listener.join()
+
 class Destination:
   def __init__(self, name, miles):
     self.name = name
     self.miles = miles
 
-durham = Destination("Durham", 30)
-charlotte = Destination("Charlotte", 45)
+durham = Destination("Durham", 300)
+charlotte = Destination("Charlotte", 450)
 
 print("Welcome to the Oregon Trail")
 time.sleep(1)
