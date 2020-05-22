@@ -1,25 +1,24 @@
-import random, time, sys
-from pynput import keyboard
+import random, time
 
-health = 100
+health = 0
 money = 0
-food = 100
+food = 50
 role = ''
 
-break_program = False
-def on_press(key):
-    global break_program
-    print (key)
-    if key == keyboard.Key.esc:
-        print ('end pressed')
-        break_program = True
-        return False
+# break_program = False
+# def on_press(key):
+#     global break_program
+#     print (key)
+#     if key == keyboard.Key.esc:
+#         print ('end pressed')
+#         break_program = True
+#         return False
 
-with keyboard.Listener(on_press=on_press) as listener:
-    while break_program == False:
-        print ('program running')
-        time.sleep(5)
-    listener.join()
+# with keyboard.Listener(on_press=on_press) as listener:
+#     while break_program == False:
+#         print ('program running')
+#         time.sleep(5)
+#     listener.join()
 
 class Destination:
   def __init__(self, name, miles):
@@ -42,12 +41,12 @@ def setRole():
     role = input("Who do you want to be: 1 for Doctor, 2 for Banker ")
     if role == '1':
       role = 'Doctor'
-      health = 150
+      health = 25
       money = 100
       break
     elif role == '2':
       role = 'Banker'
-      health = 100
+      health = 20
       money = 150
       break
     else:
@@ -102,11 +101,11 @@ def randomSick():
     print(f"Health is now {health}")
   return health
 
-def travel(name, distance, pace, destination):
-  global food
-  global health
-  while distance > 0:
+def travel(name, distance, pace, destination, health, food):
+  print(distance, health, food)
+  while distance > 0 and health > 0 and food > 0:
     print(f"{distance} miles to go")
+    print(f"Health: {health}")
     time.sleep(1)
     event()
     food -= 5
@@ -114,8 +113,9 @@ def travel(name, distance, pace, destination):
     health -= 10
     lowHealth()
     distance -= 3 * pace
-    checklife()
-  return print(f"{name} arrived at {destination}")
+    if distance <= 0:  
+      return print(f"{name} arrived at {destination}")
+  return health, food
 
 def event():
   global food
@@ -145,20 +145,27 @@ def lowHealth():
     if restQ.lower() == 'y' or restQ.lower() == 'yes':
       rest()
     else:
-      print(health)
+      print("Health: " + str(health))
 
-def checklife():
+def checklife(health, food):
   if health <= 0 or food <= 0:
     print("you died")
-    exit()
 
-def game():
+def game(health, money):
+  global food
   name = getName()
-  role = setRole()
+  role,health,money = setRole()
   pace = setPace()
-  print(pace)
-  travel(name, durham.miles, pace, durham.name)
-  travel(name, charlotte.miles, pace, charlotte.name)
+  while health > 0:
+    health,food = travel(name, durham.miles, pace, durham.name, health, food)
+    print(health)
+    checklife(health, food)
+    health,food = travel(name, charlotte.miles, pace, charlotte.name, health, food)
+    print(health)
+    checklife(health, food)
+    print('You made it')
+    break
+  print('You died')
 
 # name = getName()
 # print(f"Welcome, {name}, to the adventure!")
@@ -166,4 +173,4 @@ def game():
 # (role, health, money) = setRole()
 # print(f"Role: {role}, Health: {health}, Money: {money}")
 
-game()
+game(health, money)
