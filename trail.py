@@ -105,16 +105,20 @@ def travel(name, distance, pace, destination, health, food):
   print(distance, health, food)
   while distance > 0 and health > 0 and food > 0:
     print(f"{distance} miles to go")
-    print(f"Health: {health}")
+    print(f"Traveling Health: {health}")
     time.sleep(1)
-    event()
+    # event()
     food -= 5
     lowFood()
     health -= 10
-    lowHealth()
+    lowHealth(health)
     distance -= 3 * pace
     if distance <= 0:  
       return print(f"{name} arrived at {destination}")
+    if health <= 0:
+      print('you died traveling')
+      return health, food
+      break
   return health, food
 
 def event():
@@ -138,39 +142,27 @@ def lowFood():
     else:
       print(food)
       
-def lowHealth():
-  global health
+def lowHealth(health):
   if health < 50:
-    restQ = input("Low health, rest? ")
+    restQ = input(f"Health is {health}, rest? ")
     if restQ.lower() == 'y' or restQ.lower() == 'yes':
       rest()
     else:
-      print("Health: " + str(health))
+      print("Ok: " + str(health))
 
 def checklife(health, food):
   if health <= 0 or food <= 0:
-    print("you died")
+    print("you are dead")
 
-def game(health, money):
-  global food
-  name = getName()
-  role,health,money = setRole()
-  pace = setPace()
-  while health > 0:
-    health,food = travel(name, durham.miles, pace, durham.name, health, food)
-    print(health)
-    checklife(health, food)
-    health,food = travel(name, charlotte.miles, pace, charlotte.name, health, food)
-    print(health)
-    checklife(health, food)
-    print('You made it')
-    break
-  print('You died')
 
-# name = getName()
-# print(f"Welcome, {name}, to the adventure!")
-
-# (role, health, money) = setRole()
-# print(f"Role: {role}, Health: {health}, Money: {money}")
-
-game(health, money)
+name = getName()
+role,health,money = setRole()
+pace = setPace()
+while health > 0:
+  health,food = travel(name, durham.miles, pace, durham.name, health, food)
+  print(health)
+  time.sleep(.5)
+  health,food = travel(name, charlotte.miles, pace, charlotte.name, health, food)
+  print(health)
+  print('You made it')
+print('You died')
